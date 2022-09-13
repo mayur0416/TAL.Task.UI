@@ -8,7 +8,7 @@
   
     <!-- Actual content starts from here -->  
     <mat-card-content>  
-        <form [formGroup]="primiumForm" (ngSubmit)="onFormSubmit(primiumForm.value)">  
+        <form [formGroup]="primiumForm" >  
             <table>  
                 <tr>  
                     <td colspan="2">  
@@ -26,7 +26,7 @@
                     <td colspan="2">  
                         <mat-form-field appearance="fill" floatLabel="always">
                             <mat-label>Age</mat-label>
-                            <input matInput formControlName="Age" type="number" class="example-right-align" placeholder="0">
+                            <input matInput formControlName="Age" type="number" (change)="calculatePremium()" class="example-right-align" placeholder="0">
                              
                           </mat-form-field>
                           <mat-error>  
@@ -52,7 +52,7 @@
                     <td colspan="2">  
                         <mat-form-field appearance="fill">
                             <mat-label>Occupation</mat-label>
-                            <mat-select formControlName="Occupation" (selectionChange)="changeOccupation($event.value)" >
+                            <mat-select formControlName="Occupation" (selectionChange)="calculatePremium()" >
                               <mat-option *ngFor="let occupation of occupations" [value]="occupation">
                                 {{occupation.name}}
                               </mat-option>
@@ -68,7 +68,7 @@
                     <td colspan="2">  
                         <mat-form-field appearance="fill" floatLabel="always">
                             <mat-label>Death – Sum Insured</mat-label>
-                            <input matInput type="number"  formControlName="SumInsured" class="example-right-align" placeholder="0">
+                            <input matInput type="number" (change)="calculatePremium()" formControlName="SumInsured" class="example-right-align" placeholder="0">
                              
                           </mat-form-field>
                           <mat-error>  
@@ -77,10 +77,12 @@
                     </td>  
                 </tr>  
                 <tr>  
-                    <td colspan="2" class="content-center">  
-                        <button mat-raised-button color="accent" [disabled]="!primiumForm.valid">Submit</button>  
+                    <td colspan="2">  
+                        <mat-label *ngIf="primiumForm.valid && premiumValue>0">Premium Value : {{premiumValue}}</mat-label>
+                           
                     </td>  
                 </tr>  
+                  
             </table>  
         </form>  
     </mat-card-content>  

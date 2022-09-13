@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators ,NgForm } from '@angular/forms'; 
 import {DataService} from '../../services/data.service' 
 import {IOccupationResponse} from '../../interfaces/IOccupationResponse';
-  
+import { PremiumCalculatorRequest } from '../../interfaces/PremiumCalculatorRequest';
 interface Occupation {
   name: string;
     
@@ -13,14 +13,17 @@ interface Occupation {
   styleUrls: ['./premiumcalculator.component.scss']
 })
 export class PremiumcalculatorComponent implements OnInit {
+
+  //local variables
   occupations: IOccupationResponse[] = [];
-   
+  premiumValue: number = 0;   
   primiumForm: FormGroup;  
   Name:string='';  
   Age:number=0;   
   DateOfBirth:Date=new Date();  
   Occupation:string='';  
   SumInsured:number=0;  
+ 
     
   constructor(private fb: FormBuilder,private data: DataService) { 
      // To initialize FormGroup  
@@ -39,13 +42,15 @@ export class PremiumcalculatorComponent implements OnInit {
     this.data.getOccupations().subscribe(x=>{this.occupations=x});
   }
 
-   // Executed When Form Is Submitted  
-   onFormSubmit(form:NgForm)  
-   {  
-     console.log(form);  
-   }  
-   changeOccupation(value:string){
-   console.log(this.primiumForm.valid);
-    console.log(value);
+   // Executed When Occupation Is Changed      
+    
+  calculatePremium(){
+    if(this.primiumForm.valid){
+      const formValue = this.primiumForm.value;
+      this.data.calculatePremium(formValue).subscribe(x=>{this.premiumValue=x})     
+    } else{
+      this.premiumValue = 0;
+    }  
   }
+
 }
