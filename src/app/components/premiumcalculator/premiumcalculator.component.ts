@@ -35,6 +35,7 @@ export class PremiumcalculatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // occupation data api call
     this.data.getOccupations().subscribe(x=>{this.occupations=x});
   }
 
