@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators ,NgForm } from '@angular/forms'; 
 import {DataService} from '../../services/data.service' 
 import {IOccupationResponse} from '../../interfaces/IOccupationResponse';
-import { PremiumCalculatorRequest } from '../../interfaces/PremiumCalculatorRequest';
-interface Occupation {
-  name: string;
-    
-}
+
+ 
 @Component({
   selector: 'app-premiumcalculator',
   templateUrl: './premiumcalculator.component.html',
@@ -15,7 +12,7 @@ interface Occupation {
 export class PremiumcalculatorComponent implements OnInit {
 
   //local variables
-  occupations: IOccupationResponse[] = [];
+  
   premiumValue: number = 0;   
   primiumForm: FormGroup;  
   Name:string='';  
@@ -23,7 +20,7 @@ export class PremiumcalculatorComponent implements OnInit {
   DateOfBirth:Date=new Date();  
   Occupation:string='';  
   SumInsured:number=0;  
- 
+  occupations: IOccupationResponse[] = [];
     
   constructor(private fb: FormBuilder,private data: DataService) { 
      // To initialize FormGroup  

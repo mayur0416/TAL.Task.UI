@@ -78,7 +78,7 @@
                 </tr>  
                 <tr>  
                     <td colspan="2">  
-                        <mat-label *ngIf="primiumForm.valid && premiumValue>0">Premium Value : {{premiumValue}}</mat-label>
+                        <mat-label *ngIf="primiumForm.valid && premiumValue>0">Premium Value : {{premiumValue |  number:'1.0-0'}}</mat-label>
                            
                     </td>  
                 </tr>  
